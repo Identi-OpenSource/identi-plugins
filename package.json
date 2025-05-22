@@ -1,0 +1,51 @@
+{
+  "name": "identi-plugins",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "DEBUG=veramo* veramo server",
+    "key": "veramo config create-secret-key",
+    "test:ci": "pnpm test --coverage=true",
+    "test": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --experimental-import-meta-resolve\" jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">= 18.0.0"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@lacchain/gas-model-provider": "^1.2.1",
+    "@types/debug": "^4.1.12",
+    "@types/jest": "^29.5.13",
+    "@types/node": "^22.7.4",
+    "@veramo/cli": "^6.0.0",
+    "@veramo/core": "^6.0.0",
+    "@veramo/core-types": "^6.0.0",
+    "@veramo/data-store": "^6.0.0",
+    "@veramo/did-manager": "^6.0.0",
+    "@veramo/did-resolver": "^6.0.0",
+    "@veramo/kms-local": "^6.0.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
+    "dotenv-cli": "^8.0.0",
+    "ethers": "^6.13.3",
+    "ethr-did-resolver": "^11.0.3",
+    "jest": "^29.7.0",
+    "jest-config": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jest-environment-node": "^29.7.0",
+    "lerna": "^8.1.8",
+    "lerna-changelog": "^2.2.0",
+    "prettier": "^3.3.3",
+    "ts-jest": "^29.2.5",
+    "ts-json-schema-generator": "^2.3.0",
+    "ts-node": "^10.9.2",
+    "typeorm": "^0.3.20",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "debug": "^4.3.7"
+  }
+}

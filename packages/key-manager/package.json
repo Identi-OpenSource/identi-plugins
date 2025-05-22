@@ -1,0 +1,51 @@
+{
+  "name": "@identi-digital/key-manager",
+  "version": "0.0.0",
+  "description": "Identi Key Manager",
+  "author": "Identi <identi@identi.org>",
+  "license": "ISC",
+  "type": "module",
+  "main": "build/index.js",
+  "exports": {
+    ".": "./build/index.js"
+  },
+  "types": "build/index.d.ts",
+  "veramo": {
+    "pluginInterfaces": {
+      "IIdentiKeyManager": "./src/types/IKeyManager.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "generate-plugin-schema": "node ../../node_modules/@veramo/cli/bin/veramo.js dev generate-plugin-schema"
+  },
+  "dependencies": {
+    "@lacchain/gas-model-provider": "^1.2.1",
+    "@veramo/key-manager": "^6.0.0",
+    "@veramo/kms-local": "^6.0.0",
+    "@veramo/utils": "^6.0.0",
+    "ethers": "^6.13.3",
+    "uint8arrays": "^5.1.0"
+  },
+  "files": [
+    "build/**/*",
+    "src/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Identi-OpenSource/identi-plugins.git",
+    "directory": "packages/key-manager"
+  },
+  "keywords": [
+    "Identi Key Manager"
+  ],
+  "moduleDirectories": [
+    "node_modules",
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
