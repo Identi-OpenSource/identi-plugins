@@ -1,24 +1,14 @@
 import { IAgentContext, IIdentifier, IKey, IService, IKeyManager } from '@veramo/core-types'
 import { EthrDIDProvider } from '@veramo/did-provider-ethr'
-import { IIdentiKeyManager } from '@identi-digital/key-manager'
+import { KmsEthereumSigner } from './kms-eth-signer.js'
 import { EthrDID } from 'ethr-did'
 import Debug from 'debug'
 import { LacchainProvider } from '@lacchain/gas-model-provider'
-import {
-  AbstractSigner,
-  computeAddress,
-  getAddress,
-  Provider,
-  Signer,
-  Transaction,
-  TransactionRequest,
-  TypedDataDomain,
-  TypedDataField,
-} from 'ethers'
+import { TransactionRequest } from 'ethers'
 
 const debug = Debug('veramo:did-provider-ethr-lac')
 
-export type IRequiredContext = IAgentContext<IKeyManager | IIdentiKeyManager>
+export type IRequiredContext = IAgentContext<IKeyManager>
 
 /**
  * For most operations at most 60-70k gas is needed, larger amount for safety
@@ -68,76 +58,10 @@ export interface EthrLacNetworkConfiguration {
    */
   nodeAddress: string
 
-  expiration?: number
+  expirationTime: number
 }
 
-class KmsLacEthereumSigner extends AbstractSigner {
-  private context: IRequiredContext
-  private controllerKey: IKey
-  private nodeAddress: string
-  readonly provider: Provider | null
-
-  constructor(controllerKey: IKey, context: IRequiredContext, provider: Provider, nodeAddress: string) {
-    super(provider)
-    this.controllerKey = controllerKey
-    this.context = context
-    this.provider = provider || null
-    this.nodeAddress = nodeAddress
-  }
-
-  async getAddress(): Promise<string> {
-    if (this.controllerKey.meta?.account) {
-      return this.controllerKey.meta?.account
-    }
-    return computeAddress('0x' + this.controllerKey.publicKeyHex)
-  }
-
-  async signTransaction(tx: Transaction): Promise<string> {
-    if (tx.from != null) {
-      const thisAddress = await this.getAddress()
-      if (getAddress(tx.from) !== thisAddress) {
-        throw new Error(`transaction from address mismatch ${tx.from} != ${thisAddress}`)
-      }
-    }
-    const signature = await this.context.agent.keyManagerLacSign({
-      keyRef: this.controllerKey.kid,
-      algorithm: 'eth_signTransaction',
-      data: tx.unsignedSerialized,
-      provider: this.provider as LacchainProvider,
-      nodeAddress: this.nodeAddress,
-      expirationTime: 1936394529,
-      encoding: 'base16',
-    })
-
-    return signature
-  }
-
-  async signMessage(message: string | Uint8Array): Promise<string> {
-    throw new Error('Method not implemented.')
-  }
-
-  async signTypedData(
-    domain: TypedDataDomain,
-    types: Record<string, Array<TypedDataField>>,
-    value: Record<string, any>,
-  ): Promise<string> {
-    throw new Error('Method not implemented.')
-  }
-
-  connect(provider: Provider | null) {
-    if (!provider) {
-      throw new Error('provider must not be null')
-    }
-    return new KmsLacEthereumSigner(
-      this.controllerKey,
-      this.context,
-      provider,
-      this.nodeAddress,
-    ) as unknown as Signer
-  }
-}
-
-export class EthrDIDLacProvider extends EthrDIDProvider {
+export class EthrLacDIDProvider extends EthrDIDProvider {
   private auxNetworks: EthrLacNetworkConfiguration[]
 
   constructor(options: { defaultKms: string; networks?: EthrLacNetworkConfiguration[] }) {
@@ -152,14 +76,14 @@ export class EthrDIDLacProvider extends EthrDIDProvider {
     { identifier, key, options }: { identifier: IIdentifier; key: IKey; options?: TransactionOptions },
     context: IRequiredContext,
   ): Promise<any> {
+    const ethrDid = await this.getEthrDID(identifier, context)
+
     const usg = key.type === 'X25519' ? 'enc' : 'veriKey'
     const encoding = key.type === 'X25519' ? 'base58' : options?.encoding || 'hex'
     const attrName = `did/pub/${key.type}/${usg}/${encoding}`
     const attrValue = '0x' + key.publicKeyHex
     const ttl = options?.ttl || 86400
     const gasLimit = options?.gasLimit || DEFAULT_GAS_LIMIT
-
-    const ethrDid = await this.getEthrDID(identifier, context)
 
     debug('ethrDid.setAttribute %o', { attrName, attrValue, ttl, gasLimit })
     const txHash = await ethrDid.setAttribute(attrName, attrValue, ttl, undefined, {
@@ -225,7 +149,13 @@ export class EthrDIDLacProvider extends EthrDIDProvider {
       chainNameOrId: network.name,
       rpcUrl: network.rpcUrl,
       registry: network.registry,
-      txSigner: new KmsLacEthereumSigner(controllerKey, context, provider, network.nodeAddress),
+      txSigner: new KmsEthereumSigner(
+        controllerKey,
+        context,
+        provider,
+        network.nodeAddress,
+        network.expirationTime,
+      ),
     })
   }
 

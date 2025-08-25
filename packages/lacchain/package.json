@@ -1,9 +1,10 @@
 {
-  "name": "@identi-digital/lacchain",
-  "version": "0.0.0",
+  "name": "@identi-open-source/lacchain",
+  "version": "0.2.5",
   "description": "LACChain plugin",
   "author": "Identi <identi@identi.org>",
-  "license": "ISC",
+  "homepage": "https://github.com/Identi-OpenSource/identi-plugins#readme",
+  "license": "Apache-2.0",
   "type": "module",
   "main": "build/index.js",
   "exports": {
@@ -12,7 +13,7 @@
   "types": "build/index.d.ts",
   "veramo": {
     "pluginInterfaces": {
-      "ILacchain": "./src/types/ILacchain.ts"
+      "ILacchainCredential": "./src/types/ILacchainCredential.ts"
     }
   },
   "scripts": {
@@ -22,15 +23,25 @@
     "generate-plugin-schema": "node ../../node_modules/@veramo/cli/bin/veramo.js dev generate-plugin-schema"
   },
   "dependencies": {
-    "@identi-digital/key-manager": "workspace:^",
-    "@lacchain/gas-model-provider": "^1.2.1",
-    "@veramo/did-provider-ethr": "^6.0.0",
-    "@veramo/utils": "^6.0.0",
-    "debug": "^4.3.7",
-    "ethers": "^6.13.3",
+    "@lacchain/gas-model-provider": "1.2.1",
+    "@noble/curves": "1.9.1",
+    "@veramo/did-provider-ethr": "6.0.0",
+    "@veramo/key-manager": "6.0.0",
+    "@veramo/utils": "6.0.0",
+    "bs58": "6.0.0",
+    "debug": "4.3.7",
+    "did-jwt": "8.0.16",
+    "did-jwt-vc": "4.0.6",
+    "ethereumjs-util": "7.1.5",
+    "ethers": "6.13.3",
     "ethr-did": "3.0.5",
-    "moment": "^2.30.1",
-    "uint8arrays": "^5.1.0"
+    "moment": "2.30.1",
+    "uint8arrays": "5.1.0",
+    "web3-eth-abi": "4.4.1",
+    "web3-utils": "4.3.3"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.12"
   },
   "files": [
     "build/**/*",
@@ -47,12 +58,9 @@
     "LACChain"
   ],
   "publishConfig": {
-    "access": "public"
+    "registry": "https://npm.pkg.github.com/Identi-OpenSource"
   },
   "bugs": {
     "url": "https://github.com/Identi-OpenSource/identi-plugins/issues"
-  },
-  "devDependencies": {
-    "@types/debug": "^4.1.12"
   }
 }

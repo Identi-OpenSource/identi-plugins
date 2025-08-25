@@ -1,9 +1,10 @@
 {
   "extends": "../tsconfig.settings.json",
   "compilerOptions": {
+    "allowJs": true,
     "rootDir": "src",
     "outDir": "build",
     "declarationDir": "build"
   },
-  "include": ["./**/*.ts", "src/artifacts/contracts/**/*.json"]
+  "include": ["./**/*.ts", "src/artifacts/contracts/**/*.json", "./**/*.js", "src/did/registry.ts"],
 }
