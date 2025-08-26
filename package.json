@@ -47,5 +47,9 @@
   },
   "dependencies": {
     "debug": "^4.3.7"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
   }
 }

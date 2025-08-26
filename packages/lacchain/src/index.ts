@@ -1,6 +1,8 @@
 export * from './types/ILacchainCredential.js'
+export * from './types/ILacchainPublicKeyDirectory.js'
 export { EthrLacDIDProvider } from './ethr-lac-did-provider.js'
 export { LacDIDProvider } from './lac-did-provider.js'
 export { KeyManagementSystem } from './key-management-system.js'
 export { LacchainCredentialPlugin } from './credential-registry.js'
 export { getResolver } from './did/index.js'
+export { LacchainPublicKeyDirectoryPlugin } from './public-key-directory.js'

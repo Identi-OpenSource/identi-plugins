@@ -19,7 +19,7 @@ website/node_modules
 /packages/*/node_modules/
 coverage
 
-.npmrc
+# .npmrc
 
 npm-debug.log
 npm-debug.log*
