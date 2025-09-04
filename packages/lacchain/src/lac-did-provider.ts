@@ -110,7 +110,8 @@ export class LacDIDProvider extends AbstractIdentifierProvider {
 
     const lacDid = await this.getLacDID(identifier as IIdentifier, context)
 
-    await lacDid.setAttribute(`auth/${address}/esecp256k1vk/blockchain`, address, 86400, {
+    const ttl = options?.ttl || 86400
+    await lacDid.setAttribute(`auth/${address}/esecp256k1vk/blockchain`, address, ttl, {
       gasLimit: DEFAULT_GAS_LIMIT,
     })
 
