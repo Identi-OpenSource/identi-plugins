@@ -3,7 +3,7 @@ import { ethers } from 'ethers'
 import { DID_REGISTRY_CONTRACT_GAS } from '../abi/did_registry.js'
 import DIDDocument from './document.js'
 import { bytes32toString, keyAlgorithms, parseDID } from './utils.js'
-import lacchain from '@lacchain/gas-model-provider'
+import { LacchainProvider } from '@lacchain/gas-model-provider'
 
 function strip0x(input) {
   return input.startsWith('0x') ? input.slice(2) : input
@@ -187,7 +187,7 @@ export function getResolver(config = {}) {
 
     let provider
     if (network.nodeAddress) {
-      provider = new lacchain.LacchainProvider(network.rpcUrl)
+      provider = new LacchainProvider(network.rpcUrl)
     } else {
       provider = new ethers.JsonRpcProvider(network.rpcUrl)
     }

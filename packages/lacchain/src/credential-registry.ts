@@ -9,11 +9,10 @@ import {
   ILacchainVerifyCredentialArgs,
   IRequiredContext,
   ILacchainVerifyCredentialResponse,
+  ILacchainDeployResponse,
 } from './types/ILacchainCredential.js'
-import { ILacchainDeployResponse } from './types/ILacchainCredential.js'
 import { AbstractPrivateKeyStore } from '@veramo/key-manager'
 import { LacchainProvider, LacchainSigner } from '@lacchain/gas-model-provider'
-
 import { schema } from './plugin.schema.js'
 import CredentialRegistryService, { RoleType } from './service/credential-registry.js'
 import { extractIssuer, MANDATORY_CREDENTIAL_CONTEXT, processEntryToArray } from '@veramo/utils'

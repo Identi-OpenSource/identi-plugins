@@ -487,5 +487,52 @@ export const schema = {
         }
       }
     }
+  },
+  "ILacchainPublicKeyDirectory": {
+    "components": {
+      "schemas": {
+        "ILacchainVerifyAddressArgs": {
+          "type": "object",
+          "properties": {
+            "did": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "trusted_list_address": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "trusted_list_address"
+          ],
+          "description": "Arguments for verifying a credential"
+        },
+        "ILacchainVerifyAddressResponse": {
+          "type": "object",
+          "properties": {
+            "result": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "description": "Arguments for verifying a credential"
+        }
+      },
+      "methods": {
+        "lacchainVerifyAddress": {
+          "description": "Verify address",
+          "arguments": {
+            "$ref": "#/components/schemas/ILacchainVerifyAddressArgs"
+          },
+          "returnType": {
+            "$ref": "#/components/schemas/ILacchainVerifyAddressResponse"
+          }
+        }
+      }
+    }
   }
 }

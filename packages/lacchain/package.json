@@ -1,6 +1,6 @@
 {
-  "name": "@identi-open-source/lacchain",
-  "version": "0.2.5",
+  "name": "@identi-digital/lacchain",
+  "version": "0.0.0",
   "description": "LACChain plugin",
   "author": "Identi <identi@identi.org>",
   "homepage": "https://github.com/Identi-OpenSource/identi-plugins#readme",
@@ -13,7 +13,8 @@
   "types": "build/index.d.ts",
   "veramo": {
     "pluginInterfaces": {
-      "ILacchainCredential": "./src/types/ILacchainCredential.ts"
+      "ILacchainCredential": "./src/types/ILacchainCredential.ts",
+      "ILacchainPublicKeyDirectory": "./src/types/ILacchainPublicKeyDirectory.ts"
     }
   },
   "scripts": {
@@ -29,6 +30,7 @@
     "@veramo/key-manager": "6.0.0",
     "@veramo/utils": "6.0.0",
     "bs58": "6.0.0",
+    "cross-fetch": "4.0.0",
     "debug": "4.3.7",
     "did-jwt": "8.0.16",
     "did-jwt-vc": "4.0.6",
@@ -51,14 +53,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Identi-OpenSource/identi-plugins.git",
+    "url": "https://github.com/Identi-OpenSource/identi-plugins.git",
     "directory": "packages/lacchain"
   },
   "keywords": [
     "LACChain"
   ],
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/Identi-OpenSource"
+    "access": "public"
   },
   "bugs": {
     "url": "https://github.com/Identi-OpenSource/identi-plugins/issues"

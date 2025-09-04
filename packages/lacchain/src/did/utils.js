@@ -1,9 +1,8 @@
-import ethutils from 'ethereumjs-util'
+import { keccak, ecsign } from 'ethereumjs-util'
 import bs58 from 'bs58'
 
 export function toEthereumAddress(hexPublicKey) {
-  return `0x${ethutils
-    .keccak(Buffer.from(hexPublicKey.slice(2), 'hex'))
+  return `0x${keccak(Buffer.from(hexPublicKey.slice(2), 'hex'))
     .slice(-20)
     .toString('hex')}`
 }
@@ -20,8 +19,8 @@ export function leftPad(data, size = 64) {
 export async function signData(identity, key, data, nonce, registry) {
   const paddedNonce = leftPad(Buffer.from([nonce], 64).toString('hex'))
   const dataToSign = `1900${stripHexPrefix(registry)}${paddedNonce}${stripHexPrefix(identity)}${data}`
-  const hash = Buffer.from(ethutils.sha3(Buffer.from(dataToSign, 'hex')))
-  const signature = ethutils.ecsign(hash, Buffer.from(key, 'hex'))
+  const hash = Buffer.from(keccak(Buffer.from(dataToSign, 'hex')))
+  const signature = ecsign(hash, Buffer.from(key, 'hex'))
   return {
     r: `0x${signature.r.toString('hex')}`,
     s: `0x${signature.s.toString('hex')}`,
