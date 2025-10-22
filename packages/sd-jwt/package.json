@@ -1,0 +1,54 @@
+{
+  "name": "@identi-digital/sd-jwt",
+  "version": "0.1.0",
+  "description": "sd-jwt",
+  "author": "Identi <identi@identi.org>",
+  "homepage": "https://github.com/Identi-OpenSource/identi-plugins#readme",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "build/index.js",
+  "exports": {
+    ".": "./build/index.js"
+  },
+  "types": "build/index.d.ts",
+  "veramo": {
+    "pluginInterfaces": {
+      "ISDJwtPlugin": "./src/types/ISDJwtPlugin.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --config=../../jest.config.mjs",
+    "test:ci": "jest --config=../../jest.config.mjs",
+    "generate-plugin-schema": "node ../../node_modules/@veramo/cli/bin/veramo.js dev generate-plugin-schema"
+  },
+  "dependencies": {
+    "@sd-jwt/core": "0.16.0",
+    "@sd-jwt/crypto-nodejs": "0.16.0",
+    "@sd-jwt/types": "0.16.0",
+    "@veramo/utils": "6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.7.4"
+  },
+  "files": [
+    "build/**/*",
+    "src/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "sd-jwt"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Identi-OpenSource/identi-plugins.git",
+    "directory": "packages/sd-jwt"
+  },
+  "bugs": {
+    "url": "https://github.com/Identi-OpenSource/identi-plugins/issues"
+  }
+}
