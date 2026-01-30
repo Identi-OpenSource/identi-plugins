@@ -101,7 +101,10 @@ function wrapDidDocument(did, id, controller, history, chainId, mode) {
           relationships[type][key] = verificationMethods[key].id
           break
         case 'svc':
+          const svcName = bytes32toString(event.args.name)
+          const match = svcName.match(/(vm|auth|asse|keya|dele|invo|svc)\/(.+)?\/(\w+)?\/(\w+)?$/)
           services[key] = {
+            id: `${did}#${match[2]}`,
             type: algo,
             serviceEndpoint: Buffer.from(event.args.value.slice(2), 'hex').toString(),
           }

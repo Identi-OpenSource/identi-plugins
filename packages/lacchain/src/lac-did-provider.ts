@@ -18,6 +18,7 @@ export interface TransactionOptions extends TransactionRequest {
   encoding?: string
   metaIdentifierKeyId?: string
   signOnly?: boolean
+  ikeya: string
 }
 
 /**
@@ -183,7 +184,7 @@ export class LacDIDProvider extends AbstractIdentifierProvider {
   ): Promise<any> {
     const lacDid = await this.getLacDID(identifier, context)
 
-    const attrName = `svc//${service.type}/hex`
+    const attrName = `svc/${options?.ikeya}/${service.type}/hex`
     const attrValue =
       typeof service.serviceEndpoint === 'string'
         ? service.serviceEndpoint
