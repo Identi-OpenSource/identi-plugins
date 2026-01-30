@@ -1,4 +1,4 @@
-# LACChain plugin
+# LACChain plugin for Veramo framework
 
 This plugin provides all the functionality to manage DIDs on the LACChain blockchain using `ethr` or `lac` methods.
 
