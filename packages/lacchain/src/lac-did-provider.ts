@@ -183,7 +183,6 @@ export class LacDIDProvider extends AbstractIdentifierProvider {
     context: IAgentContext<IKeyManager>,
   ): Promise<any> {
     const lacDid = await this.getLacDID(identifier, context)
-
     const attrName = `svc/${options?.ikeya}/${service.type}/hex`
     const attrValue =
       typeof service.serviceEndpoint === 'string'
