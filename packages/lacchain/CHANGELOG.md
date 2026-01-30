@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3](https://github.com/Identi-OpenSource/identi-plugins/compare/@identi-digital/lacchain@0.1.2...@identi-digital/lacchain@0.1.3) (2026-01-30)
+
+**Note:** Version bump only for package @identi-digital/lacchain
+
+
+
+
+
 ## [0.1.2](https://github.com/Identi-OpenSource/identi-plugins/compare/@identi-digital/lacchain@0.1.1...@identi-digital/lacchain@0.1.2) (2026-01-30)
 
 **Note:** Version bump only for package @identi-digital/lacchain
